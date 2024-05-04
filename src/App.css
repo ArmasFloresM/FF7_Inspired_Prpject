@@ -1,0 +1,11 @@
+
+@tailwind base;
+@layer base {
+    @font-face {
+      font-family: 'retro-gaming-font';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/assets/RetroGaming.ttf);
+    }
+  }
