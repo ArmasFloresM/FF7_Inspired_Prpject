@@ -1,39 +1,128 @@
-export function HireMe() {
-  return (
-    <div className="flex justify-center p-5 h-auto  border border-green-600 w-full ">
-      <form action="" className="gap-3 flex flex-col items-center">
-        <div className="flex flex-shrink-0 gap-1 ">
-          <input
-            className="border rounded-xl flex px-2 py-1 w-40"
-            type="text"
-            placeholder="Your name"
-          />
-          <input
-            className="border rounded-xl flex px-2 py-1 w-40"
-            type="text"
-            placeholder="phone"
-          />
-        
-        </div>
-        <input
-            className="border rounded-xl flex px-2 py-1"
-            type="text"
-            placeholder="E-mail"
-          />
+import React, { useState } from 'react';
 
-          
+interface Color {
+  r: number;
+  g: number;
+  b: number;
+}
+
+export const HireMe: React.FC = () => {
+  const [color1, setColor1] = useState<Color>({ r: 255, g: 0, b: 0 }); // Color por defecto: rojo
+  const [color2, setColor2] = useState<Color>({ r: 0, g: 0, b: 255 }); // Color por defecto: azul
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, key: keyof Color) => {
+    const value = parseInt(event.target.value);
+    if (key === 'r') {
+      setColor1(prevColor => ({
+        ...prevColor,
+        [key]: value
+      }));
+    } else {
+      setColor2(prevColor => ({
+        ...prevColor,
+        [key]: value
+      }));
+    }
+  };
+
+  const generateColorString = (color: Color): string => {
+    return `rgb(${color.r}, ${color.g}, ${color.b})`;
+  };
+
+  const generateGradient = (position: string): string => {
+    let firstColor: string = generateColorString(color1);
+    let secondColor: string = generateColorString(color2);
+
+    switch (position) {
+      case 'arriba izquierda':
+        return `linear-gradient(to top left, ${firstColor}, ${secondColor})`;
+      case 'arriba derecha':
+        return `linear-gradient(to top right, ${firstColor}, ${secondColor})`;
+      case 'abajo izquierda':
+        return `linear-gradient(to bottom left, ${firstColor}, ${secondColor})`;
+      case 'abajo derecha':
+        return `linear-gradient(to bottom right, ${firstColor}, ${secondColor})`;
+      default:
+        return `linear-gradient(to bottom, ${firstColor}, ${secondColor})`;
+    }
+  };
+
+  return (
+    <div>
+      <div>
+        <label htmlFor="r">Red</label>
         <input
-          className="border rounded-xl flex px-2 py-1"
-          type="text"
-          placeholder="Subject"
+          type="range"
+          id="r"
+          min={0}
+          max={255}
+          value={color1.r}
+          onChange={(e) => handleInputChange(e, 'r')}
         />
-        <textarea
-          className="border rounded-xl flex px-2 py-1 resize-none h-20"
-          placeholder="Your message"
-          defaultValue=""
+        {color1.r}
+      </div>
+      <div>
+        <label htmlFor="g">Green</label>
+        <input
+          type="range"
+          id="g"
+          min={0}
+          max={255}
+          value={color1.g}
+          onChange={(e) => handleInputChange(e, 'g')}
         />
-        <button className="border w-fit py-1 px-2 rounded-xl">Enviar</button>
-      </form>
+        {color1.g}
+      </div>
+      <div>
+        <label htmlFor="b">Blue</label>
+        <input
+          type="range"
+          id="b"
+          min={0}
+          max={255}
+          value={color1.b}
+          onChange={(e) => handleInputChange(e, 'b')}
+        />
+        {color1.b}
+      </div>
+      <div>
+        <label htmlFor="r2">Red 2</label>
+        <input
+          type="range"
+          id="r2"
+          min={0}
+          max={255}
+          value={color2.r}
+          onChange={(e) => handleInputChange(e, 'r')}
+        />
+        {color2.r}
+      </div>
+      <div>
+        <label htmlFor="g2">Green 2</label>
+        <input
+          type="range"
+          id="g2"
+          min={0}
+          max={255}
+          value={color2.g}
+          onChange={(e) => handleInputChange(e, 'g')}
+        />
+        {color2.g}
+      </div>
+      <div>
+        <label htmlFor="b2">Blue 2</label>
+        <input
+          type="range"
+          id="b2"
+          min={0}
+          max={255}
+          value={color2.b}
+          onChange={(e) => handleInputChange(e, 'b')}
+        />
+        {color2.b}
+      </div>
+      <div style={{ backgroundImage: generateGradient('arriba izquierda'), width: '100px', height: '100px' }}></div>
     </div>
   );
-}
+};
+

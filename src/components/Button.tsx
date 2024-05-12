@@ -12,7 +12,7 @@ export const Button = ({ title, onHandleClick}: ButtonProps) => {
 
   return (
     <div onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} onClick={onHandleClick}
-     className="flex justify-center cursor-pointer  px-1 py-0.5 gap-3 rounded-xl hover:bg-gradient-to-r from-violet-500 to-white">
+     className="flex justify-center cursor-pointer  px-1 py-0.5 gap-3 rounded-xl hover:bg-gradient-to-r from-violet-500 to-white ">
        <div className={isActive ? '' : 'hidden'}><ArrowBigRight/></div><h2>{title}</h2>
     </div>
   );
