@@ -14,80 +14,16 @@ interface ColorValues {
   b: number;
 }
 
-type colorFunction = () => void;
+export const WindowColor: React.FC = () => {
+  const [colors, setColors] = useState([
+    { r: 0, g: 0, b: 0 },
+    { r: 0, g: 0, b: 0 },
+    { r: 0, g: 0, b: 0 },
+    { r: 0, g: 0, b: 0 },
+  ]);
 
-type DivAreas = "first" | "second" | "third" | "fourth";
-
-interface ColorsArray extends Array<ColorValues> {}
-
-export const WindowColor = () => {
-  const [currentArea, setCurrentArea] = useState<DivAreas | null>();
-  const [currentColor, setCurrentColor] = useState<ColorValues | null>(null);
-  const [colorFormulas, setColorFormulas] = useState<ColorsArray>([]);
-
-  /*   const [firstColor, setFirstColor] = useState<colorFunction>();
-  const [SecondColor, setSecondColor] = useState<colorFunction>();
-  const [ThirdColor, setThirdColor] = useState<colorFunction>();
-  const [FourthColor, setFourthColor] = useState<colorFunction>(); */
-
-  const [colorValues, setColorValues] = useState<ColorValues>({
-    r: 0,
-    g: 0,
-    b: 0,
-  });
-  /* 
-  const firstColor = (colorFormm: ColorValues) => {
-    const { r, g, b } = colorFormm;
-    return `rgba(${r}, ${g}, ${b})`;
-  };
- */
-
-  const colorCalculate = () => {
-    const { r, g, b } = colorValues;
-    
-
-    return `rgba(${r}, ${g}, ${b})`;
-  };
-
-  const coloring = (area: DivAreas) => {
-    const { r, g, b } = colorValues;
-    if(area === "first"){
-      firstColor({r,g,b})
-    }else if(area === "second"){
-      secondColor({r,g,b})
-    }else if(area === "third"){
-      thirdColor({r,g,b})
-    }else{
-      fourthColor({r,g,b})
-    }
-  };
-
-  //colors functions
-  const firstColor = ({ r, g, b }: ColorValues) => {
-    return `rgba(${r}, ${g}, ${b})`;
-  };
-  const secondColor = ({ r, g, b }: ColorValues) => {
-    return `rgba(${r}, ${g}, ${b})`;
-  };
-  const thirdColor = ({ r, g, b }: ColorValues) => {
-    return `rgba(${r}, ${g}, ${b})`;
-  };
-  const fourthColor = ({ r, g, b }: ColorValues) => {
-    return `rgba(${r}, ${g}, ${b})`;
-  };
-
-  const selectingArea = (area: DivAreas) => {
-    setCurrentArea(area);
-    console.log(currentArea);
-  };
-
-  const inputChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    key: keyof ColorValues
-  ) => {
-    const value = parseInt(event.target.value);
-    setColorValues((prevValues) => ({ ...prevValues, [key]: value }));
-  };
+  const [ selectedColorIndex, setSelectedColorIndex ] = useState(0);
+  const [ currentColor, setCurrentColor ] = useState({ r: 0, g: 0, b: 0})
 
   return (
     <div className="grid grid-cols-1 p-2 justify-center gap-3 items-center">
@@ -98,30 +34,31 @@ export const WindowColor = () => {
         >
           <div
             style={{
-              backgroundImage: `linear-gradient(to bottom right, ${firstColor}, ${secondColor}, ${thirdColor}, ${fourthColor})`,
+              /* backgroundImage: `linear-gradient(to bottom right, ${ currentColorIsActive_1 ? colorCalculate() : "rgba(0, 0, 0)"},${ currentColorIsActive_2 ? colorCalculate2(): "rgba(0, 100, 0)"}, rgba(100, 0, 0))`, */
+              backgroundImage: `linear-gradient(to bottom right, rgba(55, 0,255), rgba(0, 100, 0), rgba(100, 0, 0), rgba(200, 100, 10))`,
             }}
             className="w-full h-full bg-gray-200 rounded-md relative "
           >
             <button
-              onClick={() => coloring("first")}
+              onClick={() => setSelectedColorIndex(0)}
               className=" bg-green-900 flex justify-center absolute left-0 top-0 "
             >
               TL
             </button>
             <button
-              onClick={() => coloring("second")}
+              onClick={() => setSelectedColorIndex(1)}
               className=" bg-blue-700 flex justify-center absolute right-0 top-0 "
             >
               TR
             </button>
             <button
-              onClick={() => coloring("third")}
+              onClick={() => setSelectedColorIndex(2)}
               className=" bg-pink-500 flex justify-center absolute bottom-0 left-0 "
             >
               BL
             </button>
             <button
-              onClick={() => coloring("fourth")}
+              onClick={() => setSelectedColorIndex(3)}
               className=" bg-yellow-500 flex justify-center absolute bottom-0 right-0 "
             >
               BR
@@ -134,9 +71,9 @@ export const WindowColor = () => {
           className="border border-sky-700 flex justify-center items-center"
         >
           <div
-             style={{
+            /*   style={{
               backgroundImage: `linear-gradient(to bottom, ${colorCalculate()}, ${colorCalculate()})`,
-            }}
+            }} */
             className="w-2/3 h-2/3 bg-gray-200 rounded-lg"
           ></div>
         </div>
@@ -150,32 +87,36 @@ export const WindowColor = () => {
           R
           <input
             type="range"
+            name="r"
             min="0"
             max="255"
-            value={colorValues.r}
-            onChange={(e) => inputChange(e, "r")}
+            value={currentColor.r}
+            onChange={}
           />
         </div>
         <div className="flex gap-3">
           G
           <input
             type="range"
+            name="g"
             min="0"
             max="255"
-            value={colorValues.g}
-            onChange={(e) => inputChange(e, "g")}
+            value={currentColor.g}
+            onChange={}
           />
         </div>
         <div className="flex gap-3">
           B
           <input
             type="range"
+            name="b"
             min="0"
             max="255"
-            value={colorValues.b}
-            onChange={(e) => inputChange(e, "b")}
+            value={currentColor.b}
+            onChange={}
           />
         </div>
+        <button onClick={}>ver valores</button>
       </div>
     </div>
   );

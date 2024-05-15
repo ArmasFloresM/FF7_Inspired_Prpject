@@ -1,128 +1,74 @@
 import React, { useState } from 'react';
 
-interface Color {
-  r: number;
-  g: number;
-  b: number;
-}
-
 export const HireMe: React.FC = () => {
-  const [color1, setColor1] = useState<Color>({ r: 255, g: 0, b: 0 }); // Color por defecto: rojo
-  const [color2, setColor2] = useState<Color>({ r: 0, g: 0, b: 255 }); // Color por defecto: azul
+  const [colors, setColors] = useState([
+    { r: 0, g: 0, b: 0 },
+    { r: 0, g: 0, b: 0 },
+    { r: 0, g: 0, b: 0 },
+    { r: 0, g: 0, b: 0 }
+  ]);
+  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const [currentColor, setCurrentColor] = useState({ r: 0, g: 0, b: 0 });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, key: keyof Color) => {
-    const value = parseInt(event.target.value);
-    if (key === 'r') {
-      setColor1(prevColor => ({
-        ...prevColor,
-        [key]: value
-      }));
-    } else {
-      setColor2(prevColor => ({
-        ...prevColor,
-        [key]: value
-      }));
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCurrentColor({ ...currentColor, [name]: parseInt(value) });
   };
 
-  const generateColorString = (color: Color): string => {
-    return `rgb(${color.r}, ${color.g}, ${color.b})`;
+  const handleSetColor = () => {
+    const newColors = [...colors];
+    newColors[selectedColorIndex] = currentColor;
+    setColors(newColors);
   };
 
-  const generateGradient = (position: string): string => {
-    let firstColor: string = generateColorString(color1);
-    let secondColor: string = generateColorString(color2);
-
-    switch (position) {
-      case 'arriba izquierda':
-        return `linear-gradient(to top left, ${firstColor}, ${secondColor})`;
-      case 'arriba derecha':
-        return `linear-gradient(to top right, ${firstColor}, ${secondColor})`;
-      case 'abajo izquierda':
-        return `linear-gradient(to bottom left, ${firstColor}, ${secondColor})`;
-      case 'abajo derecha':
-        return `linear-gradient(to bottom right, ${firstColor}, ${secondColor})`;
-      default:
-        return `linear-gradient(to bottom, ${firstColor}, ${secondColor})`;
-    }
-  };
+  const getColorString = (color: { r: number, g: number, b: number }) =>
+    `rgb(${color.r}, ${color.g}, ${color.b})`;
 
   return (
     <div>
       <div>
-        <label htmlFor="r">Red</label>
         <input
           type="range"
-          id="r"
-          min={0}
-          max={255}
-          value={color1.r}
-          onChange={(e) => handleInputChange(e, 'r')}
+          name="r"
+          min="0"
+          max="255"
+          value={currentColor.r}
+          onChange={handleInputChange}
         />
-        {color1.r}
+        <input
+          type="range"
+          name="g"
+          min="0"
+          max="255"
+          value={currentColor.g}
+          onChange={handleInputChange}
+        />
+        <input
+          type="range"
+          name="b"
+          min="0"
+          max="255"
+          value={currentColor.b}
+          onChange={handleInputChange}
+        />
       </div>
       <div>
-        <label htmlFor="g">Green</label>
-        <input
-          type="range"
-          id="g"
-          min={0}
-          max={255}
-          value={color1.g}
-          onChange={(e) => handleInputChange(e, 'g')}
-        />
-        {color1.g}
+        {colors.map((color, index) => (
+          <button key={index} onClick={() => setSelectedColorIndex(index)}>
+            Color {index + 1}
+          </button>
+        ))}
       </div>
-      <div>
-        <label htmlFor="b">Blue</label>
-        <input
-          type="range"
-          id="b"
-          min={0}
-          max={255}
-          value={color1.b}
-          onChange={(e) => handleInputChange(e, 'b')}
-        />
-        {color1.b}
-      </div>
-      <div>
-        <label htmlFor="r2">Red 2</label>
-        <input
-          type="range"
-          id="r2"
-          min={0}
-          max={255}
-          value={color2.r}
-          onChange={(e) => handleInputChange(e, 'r')}
-        />
-        {color2.r}
-      </div>
-      <div>
-        <label htmlFor="g2">Green 2</label>
-        <input
-          type="range"
-          id="g2"
-          min={0}
-          max={255}
-          value={color2.g}
-          onChange={(e) => handleInputChange(e, 'g')}
-        />
-        {color2.g}
-      </div>
-      <div>
-        <label htmlFor="b2">Blue 2</label>
-        <input
-          type="range"
-          id="b2"
-          min={0}
-          max={255}
-          value={color2.b}
-          onChange={(e) => handleInputChange(e, 'b')}
-        />
-        {color2.b}
-      </div>
-      <div style={{ backgroundImage: generateGradient('arriba izquierda'), width: '100px', height: '100px' }}></div>
+      <button onClick={handleSetColor}>Set Color</button>
+      <div
+        style={{
+          width: '100%',
+          height: '200px',
+          backgroundImage: `linear-gradient(to bottom, ${colors.map(getColorString).join(', ')})`
+        }}
+      ></div>
     </div>
   );
 };
+
 
