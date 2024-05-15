@@ -22,9 +22,23 @@ export const WindowColor: React.FC = () => {
     { r: 0, g: 0, b: 0 },
   ]);
 
-  const [ selectedColorIndex, setSelectedColorIndex ] = useState(0);
-  const [ currentColor, setCurrentColor ] = useState({ r: 0, g: 0, b: 0})
+  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const [currentColor, setCurrentColor] = useState({ r: 0, g: 0, b: 0 })
 
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCurrentColor({ ...currentColor, [name]: parseInt(value) });
+  }
+
+
+  const handleSetColor = () => {
+    const newColor = [...colors]
+    newColor[selectedColorIndex] = currentColor;
+    setColors(newColor)
+  }
+
+  const getColorString = (color: { r: number, g: number, b: number }) => `rgba(${color.r}, ${color.g}}, ${color.b})`
   return (
     <div className="grid grid-cols-1 p-2 justify-center gap-3 items-center">
       <div className="flex  gap-3">
@@ -40,25 +54,25 @@ export const WindowColor: React.FC = () => {
             className="w-full h-full bg-gray-200 rounded-md relative "
           >
             <button
-              onClick={() => setSelectedColorIndex(0)}
+              onClick={handleSetColor}
               className=" bg-green-900 flex justify-center absolute left-0 top-0 "
             >
               TL
             </button>
             <button
-              onClick={() => setSelectedColorIndex(1)}
+              onClick={handleSetColor}
               className=" bg-blue-700 flex justify-center absolute right-0 top-0 "
             >
               TR
             </button>
             <button
-              onClick={() => setSelectedColorIndex(2)}
+              onClick={handleSetColor}
               className=" bg-pink-500 flex justify-center absolute bottom-0 left-0 "
             >
               BL
             </button>
             <button
-              onClick={() => setSelectedColorIndex(3)}
+              onClick={handleSetColor}
               className=" bg-yellow-500 flex justify-center absolute bottom-0 right-0 "
             >
               BR
@@ -91,7 +105,7 @@ export const WindowColor: React.FC = () => {
             min="0"
             max="255"
             value={currentColor.r}
-            onChange={}
+            onChange={handleInputChange}
           />
         </div>
         <div className="flex gap-3">
@@ -102,7 +116,7 @@ export const WindowColor: React.FC = () => {
             min="0"
             max="255"
             value={currentColor.g}
-            onChange={}
+            onChange={handleInputChange}
           />
         </div>
         <div className="flex gap-3">
@@ -113,10 +127,10 @@ export const WindowColor: React.FC = () => {
             min="0"
             max="255"
             value={currentColor.b}
-            onChange={}
+            onChange={handleInputChange}
           />
         </div>
-        <button onClick={}>ver valores</button>
+      
       </div>
     </div>
   );
