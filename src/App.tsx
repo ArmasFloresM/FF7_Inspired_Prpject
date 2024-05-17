@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./App.css";
 import { MainMenu } from "./layouts/MainMenu";
 import { Frame } from "./components/Frame";
 import { GradientColorProvider } from "./context/GradientColorProider";
+import { GradientColorContext } from "./context/GradientColorContext";
 
 /* interface ColorValues {
   r: number;
@@ -21,6 +22,9 @@ style={{ backgroundImage: `linear-gradient(to bottom right,${colors.map( color =
  */
 
 function App() {
+
+  const gradiente = useContext(GradientColorContext);
+
   const [colorValue, setColorValue] = useState<string>("100");
 
   const handleColor = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +33,7 @@ function App() {
 
   return (
     <GradientColorProvider>
-      <div className="max-h-screen flex items-center justify-center m-10">
+      <div style={{backgroundImage:  `linear-gradient(to bottom right,${gradiente.map( color => (`rgba(${color.r}, ${color.g}, ${color.b})`)).join(", ")})`}} className="max-h-screen flex items-center justify-center m-10">
         <div
           className="p-5 flex flex-col border border-green-700 relative justify-between"
           style={{ height: "725px", width: "725px" }}

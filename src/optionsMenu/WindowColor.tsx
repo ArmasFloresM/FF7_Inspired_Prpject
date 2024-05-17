@@ -1,17 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { ColorValues } from "../interfaces/WindowColor_Interface";
 
-
-
 export const WindowColor: React.FC = () => {
-
-  
-  
-
-
-
-
-
   const [colors, setColors] = useState<ColorValues[]>([
     { r: 0, g: 0, b: 255 },
     { r: 0, g: 0, b: 255 },
@@ -23,6 +13,9 @@ export const WindowColor: React.FC = () => {
     return colors.map(getColorString).join(", ");
   };
 
+
+ 
+
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [currentColor, setCurrentColor] = useState<ColorValues>({
     r: 0,
@@ -30,15 +23,9 @@ export const WindowColor: React.FC = () => {
     b: 0,
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+/*   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCurrentColor({ ...currentColor, [name]: parseInt(value) });
-    const newColors = [...colors];
-    newColors[selectedColorIndex] = currentColor;
-    setColors(newColors);
-  };
-
-/*   const handleSetColor = () => {
     const newColors = [...colors];
     newColors[selectedColorIndex] = currentColor;
     setColors(newColors);
@@ -47,6 +34,11 @@ export const WindowColor: React.FC = () => {
   const getColorString = (color: ColorValues) =>
     `rgb(${color.r}, ${color.g}, ${color.b})`;
 
+  /*   const handleSetColor = () => {
+      const newColors = [...colors];
+      newColors[selectedColorIndex] = currentColor;
+      setColors(newColors);
+    }; */
   return (
     <div className="grid grid-cols-1 p-2 justify-center gap-3 items-center">
       <div className="flex gap-3">
