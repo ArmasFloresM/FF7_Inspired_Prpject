@@ -14,13 +14,6 @@ const INITIAL_STATE: ColorValues[] = [
 
 
 export const GradientReducer = ( state: typeof INITIAL_STATE, action?: GradientColorAction ) => {
-   if(action){
-    const { name, value } = e.target;
-    setCurrentColor({ ...currentColor, [name]: parseInt(value) });
-    const newColors = [...colors];
-    newColors[selectedColorIndex] = currentColor;
-    setColors(newColors);
-   }
 
 
 }

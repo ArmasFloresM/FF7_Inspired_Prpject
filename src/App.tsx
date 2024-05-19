@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./App.css";
 import { MainMenu } from "./layouts/MainMenu";
 import { Frame } from "./components/Frame";
-import { GradientColorProvider } from "./context/GradientColorProider";
+import { GradientColorProvider } from "./context/GradientColorProvider";
 import { GradientColorContext } from "./context/GradientColorContext";
 
 /* interface ColorValues {
@@ -23,17 +23,26 @@ style={{ backgroundImage: `linear-gradient(to bottom right,${colors.map( color =
 
 function App() {
 
-  const gradiente = useContext(GradientColorContext);
+  const { colors, GradientCreated } = useContext(GradientColorContext);
 
+
+
+
+  function yeah(){
+    console.log(GradientCreated)
+  }
+
+ 
+/* 
   const [colorValue, setColorValue] = useState<string>("100");
 
   const handleColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColorValue(event.target.value);
-  };
+  }; */
 
   return (
     <GradientColorProvider>
-      <div style={{backgroundImage:  `linear-gradient(to bottom right,${gradiente.map( color => (`rgba(${color.r}, ${color.g}, ${color.b})`)).join(", ")})`}} className="max-h-screen flex items-center justify-center m-10">
+      <div style={{backgroundImage: `linear-gradient(to bottom right, ${GradientCreated})`}} className="max-h-screen flex items-center justify-center m-10">
         <div
           className="p-5 flex flex-col border border-green-700 relative justify-between"
           style={{ height: "725px", width: "725px" }}
@@ -42,6 +51,7 @@ function App() {
 
           <MainMenu />
         </div>
+        <button onClick={yeah}>probar</button>
       </div>
     </GradientColorProvider>
   );
