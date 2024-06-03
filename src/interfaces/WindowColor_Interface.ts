@@ -3,3 +3,8 @@ export interface ColorValues {
     g: number;
     b: number;
   }
+
+ export type GradientColorContextTypes = {
+  globalColors: Array<ColorValues> 
+  setGlobalColors: (value: Array<ColorValues>) => void
+ }

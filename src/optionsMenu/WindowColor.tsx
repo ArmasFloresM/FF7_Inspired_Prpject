@@ -1,53 +1,61 @@
 import React, { ChangeEvent, useContext, useState } from "react";
-import { ColorValues } from "../interfaces/WindowColor_Interface";
+import { ColorValues, GradientColorContextTypes } from "../interfaces/WindowColor_Interface";
 import { GradientColorContext } from "../context/GradientColorContext";
 
+
+
+
 export const WindowColor: React.FC = () => {
-  /* const [colors, setColors] = useState<ColorValues[]>([
+
+  const {  setGlobalColors} = useContext( GradientColorContext) as GradientColorContextTypes
+
+
+  const [colors, setColors] = useState<ColorValues[]>([
     { r: 0, g: 0, b: 255 },
     { r: 0, g: 0, b: 255 },
     { r: 0, g: 100, b: 255 },
     { r: 0, g: 0, b: 255 },
-  ]); */
-
-  const {colors, setColors, GradientCreated, setSelectedColorIndex, handleInputChange, currentColor  } = useContext( GradientColorContext)
+  ]);
 
 
- /*  const GradientCreated = () => {
-    return colors.map(getColorString).join(", ");
-  }; */
 
 
- 
 
-  /* const [selectedColorIndex, setSelectedColorIndex] = useState(0); */
- /*  const [currentColor, setCurrentColor] = useState<ColorValues>({
+  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+  const [currentColor, setCurrentColor] = useState<ColorValues>({
     r: 0,
     g: 0,
     b: 0,
-  }); */
+  });
 
- /*  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  
+
+  const handleInputChange =  (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCurrentColor({ ...currentColor, [name]: parseInt(value) });
     const newColors = [...colors];
     newColors[selectedColorIndex] = currentColor;
-    setColors(newColors);
-  }; */
+    setColors(newColors)
+
+
+    setTimeout(() => {
+      setGlobalColors(newColors);
+
+    }, 1500);
+
+  
+  };
+
 
   const getColorString = (color: ColorValues) =>
     `rgb(${color.r}, ${color.g}, ${color.b})`;
 
-  /*   const handleSetColor = () => {
-      const newColors = [...colors];
-      newColors[selectedColorIndex] = currentColor;
-      setColors(newColors);
-    
-    }; */
+  const GradientCreated = () => {
+    return colors.map(getColorString).join(", ");
+  };
 
-    
-    
 
+ 
 
   return (
     <div className="grid grid-cols-1 p-2 justify-center gap-3 items-center">

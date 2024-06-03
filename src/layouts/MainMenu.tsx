@@ -30,6 +30,7 @@ export function MainMenu() {
 
   return (
     <div className="border border-red-600 flex p-1 h-3/5 justify-center">
+      
       <div className="w-2/3 overflow-y-auto flex justify-center">
         <Displayer projectItem={currentProject} />
       </div>

@@ -6,6 +6,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { NotFoundPage } from "./pages/NotFoundPage.tsx";
 import { MainMenu } from "./layouts/MainMenu.tsx";
+import { GradientColorProvider } from "./context/GradientColorProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GradientColorProvider>
+      <RouterProvider router={router} />
+    </GradientColorProvider>
   </React.StrictMode>
 );
