@@ -27,6 +27,7 @@ export default {
         'pos-100': '100% 100%',
       },
       colors: {
+
         
       }
       
