@@ -17,7 +17,7 @@ export const Frame = () => {
           backgroundImage: `linear-gradient(to bottom right, rgba(0, 0, 0), rgba(0, 0, 0), rgba(0, 200, 0), rgba(0, 0, 0))`
         }}
         
-          className="border border-stone-950 p-5 items-center"
+          className="border border-stone-950 p-5 items-center "
         >
           Text
         </div>

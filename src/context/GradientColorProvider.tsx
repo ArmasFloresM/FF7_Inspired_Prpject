@@ -28,6 +28,11 @@ export const GradientColorProvider = ({
   const color3 = globalColors[2];
   const color4 = globalColors[3];
 
+
+/*   const ColorFormated = `linear-gradient(to bottom right,${globalColors
+    .map((color) => `rgba(${color.r}, ${color.g}, ${color.b})`)
+    .join(", ")})` */
+
   return (
     <GradientColorContext.Provider
       value={{ globalColors, setGlobalColors, color1, color2, color3, color4 }}
